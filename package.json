@@ -6,8 +6,7 @@
   "scripts": {
     "start": "DD_SITE=datadoghq.eu node dist/index.js",
     "build": "esbuild index.ts --tree-shaking=true --bundle --platform=node --target=node16 --outfile=dist/index.js",
-    "prepare": "husky install",
-    "prettier:write": "prettier --write ."
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -16,10 +15,14 @@
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "@datadog/datadog-api-client": "^1.4.0",
-    "esbuild": "0.15.12"
+    "esbuild": "0.15.12",
+    "lint-staged": "^13.0.3"
   },
   "devDependencies": {
     "husky": "^8.0.1",
     "prettier": "2.7.1"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
