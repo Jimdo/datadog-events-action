@@ -1,0 +1,5 @@
+name: 'Github Actions Datadog Events'
+description: 'Send Github Actions CI events to Datadog'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
