@@ -30,7 +30,7 @@ try {
     apiInstance
         .createEvent(params)
         .then((data: v1.EventCreateResponse) => {
-            info(JSON.stringify(params.body));
+            info(JSON.stringify(params.body, null, 2));
             info(
                 `Event created! at ${data.event.url}. It might take couple of seconds for the url to be active.`
             );
