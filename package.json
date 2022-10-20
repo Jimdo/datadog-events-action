@@ -18,7 +18,6 @@
     "esbuild": "0.15.12"
   },
   "devDependencies": {
-    "husky": "^8.0.1",
-    "typescript": "^4.8.4"
+    "husky": "^8.0.1"
   }
 }
