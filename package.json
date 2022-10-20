@@ -6,7 +6,8 @@
   "scripts": {
     "start": "DD_SITE=datadoghq.eu node dist/index.js",
     "build": "esbuild index.ts --tree-shaking=true --bundle --platform=node --target=node16 --outfile=dist/index.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier:write": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "esbuild": "0.15.12"
   },
   "devDependencies": {
-    "husky": "^8.0.1"
+    "husky": "^8.0.1",
+    "prettier": "2.7.1"
   }
 }
