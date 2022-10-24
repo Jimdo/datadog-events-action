@@ -39,14 +39,14 @@ try {
 
     info(`%%% ${textBody.join('\n')} %%%`);
 
-    // apiInstance
-    //     .createEvent(params)
-    //     .then((data: v1.EventCreateResponse) => {
-    //         info(JSON.stringify({ title, tags }, null, 2));
-    //         info(`Event created! at ${data.event.url}`);
-    //         info('It might take couple of seconds for the url to be active.');
-    //     })
-    //     .catch((error: any) => console.error(error));
+    apiInstance
+        .createEvent(params)
+        .then((data: v1.EventCreateResponse) => {
+            info(JSON.stringify({ title, tags }, null, 2));
+            info(`Event created! at ${data.event.url}`);
+            info('It might take couple of seconds for the url to be active.');
+        })
+        .catch((error: any) => console.error(error));
 } catch (error) {
     setFailed(error.message);
 }
