@@ -15,10 +15,10 @@ try {
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
     const text = `
         %%% \n CI Deployment started 
-        PR: [#${pr.number}](${pr.html_url}) 
-        Head: ${pr.head.ref} 
-        Author: ${pr.assignee.html_url} 
-        Repo: ${repo.html_url} \n %%%
+        PR: [#${pr?.number}](${pr?.html_url}) 
+        Head: ${pr?.head.ref} 
+        Author: ${pr?.assignee.html_url} 
+        Repo: ${repo?.html_url} \n %%%
     `;
 
     const params: v1.EventsApiCreateEventRequest = {
