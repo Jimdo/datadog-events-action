@@ -13,13 +13,14 @@ try {
     const repo = payload?.repository;
     const title = `CI: ${repo.full_name} deployment started`;
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
-    const text = `
-        %%% \n CI Deployment started 
-        PR: [#${pr?.number}](${pr?.html_url}) 
-        Head: ${pr?.head.ref} 
-        Author: ${pr?.assignee.html_url} 
-        Repo: ${repo?.html_url} \n %%%
-    `;
+    // const text = `
+    //     %%% \n CI Deployment started
+    //     PR: [#${pr?.number}](${pr?.html_url})
+    //     Head: ${pr?.head.ref}
+    //     Author: ${pr?.assignee.html_url}
+    //     Repo: ${repo?.html_url} \n %%%
+    // `;
+    const text = 'hi';
 
     const params: v1.EventsApiCreateEventRequest = {
         body: {
