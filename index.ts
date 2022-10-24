@@ -13,22 +13,25 @@ try {
     const repo = payload?.repository;
     const title = `CI: "${repo.full_name}" deployment started`;
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
-    const text = `
-        %%%
-        CI Deployment started
-        Repo: ${repo?.html_url}
-        PR: [#${pr?.number} ${pr?.title}](${pr?.html_url})
-        Head: ${pr?.head.ref}
-        Workflow: ${context.workflow}
-        Author: ${context.actor}
-        Event: ${context.eventName}
-        %%%
-    `;
+
+    const isPullRequest = context.eventName === 'pull_request';
+    const prBody = isPullRequest
+        ? [`PR: [${pr?.title} (#${pr?.number})](${pr?.html_url})`, `Head: ${pr?.head.ref}`]
+        : [];
+
+    let textBody = [
+        'CI Deployment started',
+        `Repo: ${repo?.html_url}`,
+        ...prBody,
+        `Workflow: ${context.workflow}`,
+        `Author: ${context.actor}`,
+        `Event: ${context.eventName}`,
+    ];
 
     const params: v1.EventsApiCreateEventRequest = {
         body: {
             title,
-            text,
+            text: `%%% ${textBody.join('\n')} %%%`,
             tags,
             alertType: 'info',
         },
@@ -37,8 +40,11 @@ try {
     apiInstance
         .createEvent(params)
         .then((data: v1.EventCreateResponse) => {
+            info('Event body: ');
             info(JSON.stringify({ title, tags }, null, 2));
-            info(`Event created! at ${data.event.url}`);
+            info(textBody.join('\n'));
+            info('\n');
+            info(`Event created at ${data.event.url}`);
             info('It might take couple of seconds for the url to be active.');
         })
         .catch((error: any) => console.error(error));
