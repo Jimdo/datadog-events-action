@@ -15,8 +15,8 @@ try {
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
     const text = `
         CI Deployment started
-        %%% \n Repo: ${repo?.html_url} \n %%%
-        %%% \n PR: [#${pr?.number}](${pr?.html_url}) \n %%%
+        %%% Repo: ${repo?.html_url} %%%
+        %%% PR: [#${pr?.number}](${pr?.html_url}) %%%
         Head: ${pr?.head.ref}
         Workflow: ${context.workflow}
         Author: ${context.actor}
