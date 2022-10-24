@@ -11,7 +11,7 @@ try {
     const payload = context.payload;
     const pr = payload?.pull_request;
     const repo = payload?.repository;
-    const title = `CI: ${repo.full_name} deployment started`;
+    const title = `CI: "${repo.full_name}" deployment started`;
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
     // const text = `
     //     %%% \n CI Deployment started
@@ -21,6 +21,7 @@ try {
     //     Repo: ${repo?.html_url} \n %%%
     // `;
     const text = 'hi';
+    info(JSON.stringify({ pr, repo }, null, 2));
 
     const params: v1.EventsApiCreateEventRequest = {
         body: {
