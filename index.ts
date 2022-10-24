@@ -17,10 +17,9 @@ try {
         %%% \n CI Deployment started
         PR: [#${pr?.number}](${pr?.html_url})
         Head: ${pr?.head.ref}
-        Author: ${pr?.assignee?.html_url}
+        Author: ${pr?.sender?.html_url}
         Repo: ${repo?.html_url} \n %%%
     `;
-    info(JSON.stringify(payload, null, 2));
 
     const params: v1.EventsApiCreateEventRequest = {
         body: {
