@@ -37,12 +37,12 @@ try {
         },
     };
 
-    info(`%%% ${textBody.join('\n')} %%%`);
-
     apiInstance
         .createEvent(params)
         .then((data: v1.EventCreateResponse) => {
+            info('Event body: ');
             info(JSON.stringify({ title, tags }, null, 2));
+            info(textBody.join('\n'));
             info(`Event created! at ${data.event.url}`);
             info('It might take couple of seconds for the url to be active.');
         })
