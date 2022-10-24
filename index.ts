@@ -42,8 +42,10 @@ try {
         .then((data: v1.EventCreateResponse) => {
             info('Event body: ');
             info(JSON.stringify({ title, tags }, null, 2));
+            info('\n');
             info(textBody.join('\n'));
-            info(`Event created! at ${data.event.url}`);
+            info('\n\n');
+            info(`Event created at ${data.event.url}`);
             info('It might take couple of seconds for the url to be active.');
         })
         .catch((error: any) => console.error(error));
