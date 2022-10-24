@@ -1,5 +1,5 @@
 import { setFailed, info } from '@actions/core';
-import { context, getOctokit } from '@actions/github';
+import { context } from '@actions/github';
 import { client, v1 } from '@datadog/datadog-api-client';
 
 const configuration = client.createConfiguration({
@@ -33,8 +33,6 @@ try {
             alertType: 'info',
         },
     };
-
-    info(JSON.stringify(context, null, 2));
 
     apiInstance
         .createEvent(params)
