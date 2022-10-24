@@ -14,12 +14,13 @@ try {
     const title = `CI: "${repo.full_name}" deployment started`;
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
     const text = `
-        %%% \n CI Deployment started
-        Repo: ${repo?.html_url} \n %%%
-        PR: [#${pr?.number}](${pr?.html_url})
+        CI Deployment started
+        %%% \n Repo: ${repo?.html_url} \n %%%
+        %%% \n PR: [#${pr?.number}](${pr?.html_url}) \n %%%
         Head: ${pr?.head.ref}
         Workflow: ${context.workflow}
-        Author: ${pr?.sender?.html_url}
+        Author: ${context.actor}
+        Event: ${context.eventName}
     `;
 
     const params: v1.EventsApiCreateEventRequest = {
