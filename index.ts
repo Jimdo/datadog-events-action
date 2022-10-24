@@ -13,12 +13,20 @@ try {
     const repo = payload?.repository;
     const title = `CI: "${repo.full_name}" deployment started`;
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
+
+    const isPullRequest = context.eventName === 'pull_request';
+    const prBody = !isPullRequest
+        ? ''
+        : `
+        PR: [#${pr?.number} ${pr?.title}](${pr?.html_url})
+        Head: ${pr?.head.ref}
+    `;
+
     const text = `
         %%%
         CI Deployment started
         Repo: ${repo?.html_url}
-        PR: [#${pr?.number} ${pr?.title}](${pr?.html_url})
-        Head: ${pr?.head.ref}
+        ${prBody}
         Workflow: ${context.workflow}
         Author: ${context.actor}
         Event: ${context.eventName}
