@@ -15,41 +15,38 @@ try {
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
 
     const isPullRequest = context.eventName === 'pull_request';
-    const prBody = !isPullRequest
-        ? ''
-        : `
-        PR: [#${pr?.number} ${pr?.title}](${pr?.html_url})
-        Head: ${pr?.head.ref}
-    `;
+    const prBody = isPullRequest
+        ? [`PR: [${pr?.title} (#${pr?.number})](${pr?.html_url})`, `Head: ${pr?.head.ref}`]
+        : [];
 
-    const text = `
-        %%%
-        CI Deployment started
-        Repo: ${repo?.html_url}
-        ${prBody}
-        Workflow: ${context.workflow}
-        Author: ${context.actor}
-        Event: ${context.eventName}
-        %%%
-    `;
+    let textBody = [
+        'CI Deployment started',
+        `Repo: ${repo?.html_url}`,
+        ...prBody,
+        `Workflow: ${context.workflow}`,
+        `Author: ${context.actor}`,
+        `Event: ${context.eventName}`,
+    ];
 
     const params: v1.EventsApiCreateEventRequest = {
         body: {
             title,
-            text,
+            text: `%%% ${textBody.join('\n')} %%%`,
             tags,
             alertType: 'info',
         },
     };
 
-    apiInstance
-        .createEvent(params)
-        .then((data: v1.EventCreateResponse) => {
-            info(JSON.stringify({ title, tags }, null, 2));
-            info(`Event created! at ${data.event.url}`);
-            info('It might take couple of seconds for the url to be active.');
-        })
-        .catch((error: any) => console.error(error));
+    info(`%%% ${textBody.join('\n')} %%%`);
+
+    // apiInstance
+    //     .createEvent(params)
+    //     .then((data: v1.EventCreateResponse) => {
+    //         info(JSON.stringify({ title, tags }, null, 2));
+    //         info(`Event created! at ${data.event.url}`);
+    //         info('It might take couple of seconds for the url to be active.');
+    //     })
+    //     .catch((error: any) => console.error(error));
 } catch (error) {
     setFailed(error.message);
 }
