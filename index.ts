@@ -17,7 +17,7 @@ try {
         %%%
         CI Deployment started
         Repo: ${repo?.html_url}
-        PR: [#${pr?.number}](${pr?.html_url})
+        PR: [#${pr?.number} ${pr?.title}](${pr?.html_url})
         Head: ${pr?.head.ref}
         Workflow: ${context.workflow}
         Author: ${context.actor}
