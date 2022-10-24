@@ -1,7 +1,6 @@
 import { setFailed, info } from '@actions/core';
 import { context, getOctokit } from '@actions/github';
 import { client, v1 } from '@datadog/datadog-api-client';
-import { createActionAuth } from '@octokit/auth-action';
 
 const configuration = client.createConfiguration({
     authMethods: { apiKeyAuth: process.env.DD_API_KEY },
@@ -26,8 +25,6 @@ try {
         %%%
     `;
 
-    // getOctokit(authentication.token).rest.
-
     const params: v1.EventsApiCreateEventRequest = {
         body: {
             title,
@@ -36,6 +33,8 @@ try {
             alertType: 'info',
         },
     };
+
+    info(JSON.stringify(context, null, 2));
 
     apiInstance
         .createEvent(params)
@@ -48,12 +47,3 @@ try {
 } catch (error) {
     setFailed(error.message);
 }
-
-async function test() {
-    const auth = createActionAuth();
-    const authentication = await auth();
-
-    info(JSON.stringify({ type: authentication.tokenType }, null, 2));
-}
-
-test();
