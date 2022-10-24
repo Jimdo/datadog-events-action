@@ -15,10 +15,11 @@ try {
     const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
     const text = `
         %%% \n CI Deployment started
+        Repo: ${repo?.html_url} \n %%%
         PR: [#${pr?.number}](${pr?.html_url})
         Head: ${pr?.head.ref}
+        Workflow: ${context.workflow}
         Author: ${pr?.sender?.html_url}
-        Repo: ${repo?.html_url} \n %%%
     `;
 
     const params: v1.EventsApiCreateEventRequest = {
@@ -30,7 +31,7 @@ try {
         },
     };
 
-    info(JSON.stringify(context.workflow, null, 2));
+    info(JSON.stringify(context, null, 2));
 
     apiInstance
         .createEvent(params)
