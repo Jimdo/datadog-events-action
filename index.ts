@@ -24,11 +24,11 @@ try {
 
     const text = `
         %%%
-        CI Deployment started \n
-        Repo: ${repo?.html_url} \n
-        ${prBody} \n
-        Workflow: ${context.workflow} \n
-        Author: ${context.actor} \n
+        CI Deployment started
+        Repo: ${repo?.html_url}
+        ${prBody}
+        Workflow: ${context.workflow}
+        Author: ${context.actor}
         Event: ${context.eventName}
         %%%
     `;
