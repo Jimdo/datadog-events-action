@@ -1,5 +1,9 @@
 name: 'Github Actions Datadog Events'
 description: 'Send Github Actions CI events to Datadog'
+inputs:
+  event:
+    required: true
+    description: 'Deployment event to send to DD. Can be "start", "success", "failure"'
 runs:
   using: 'node16'
   main: 'dist/index.js'

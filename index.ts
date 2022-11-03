@@ -1,4 +1,4 @@
-import { setFailed, info } from '@actions/core';
+import { setFailed, info, getInput } from '@actions/core';
 import { context } from '@actions/github';
 import { client, v1 } from '@datadog/datadog-api-client';
 
@@ -7,12 +7,23 @@ const configuration = client.createConfiguration({
 });
 const apiInstance = new v1.EventsApi(configuration);
 
+const eventNames = ['start', 'success', 'failure'] as const;
+type Events = typeof eventNames[number];
+function isValidEvent(eventname: Events) {
+    return eventNames.includes(eventname);
+}
+
 try {
+    const eventname = getInput('event') as Events;
+    if (isValidEvent(eventname)) {
+        setFailed(`Invalid eventname ${eventname}. Can be ${eventNames.join(', ')}`);
+    }
+
     const payload = context.payload;
     const pr = payload?.pull_request;
     const repo = payload?.repository;
-    const title = `CI: "${repo.full_name}" deployment started`;
-    const tags = [`repo:${repo.full_name}`, 'event:ci.deployment.started', 'source:github-ci'];
+    const title = `CI: "${repo.full_name}" deployment ${eventname}`;
+    const tags = [`repo:${repo.full_name}`, `event:ci.deployment.${eventname}`, 'source:github-ci'];
 
     const isPullRequest = context.eventName === 'pull_request';
     const prBody = isPullRequest
@@ -20,7 +31,7 @@ try {
         : [];
 
     let textBody = [
-        'CI Deployment started',
+        `CI Deployment ${eventname}`,
         `Repo: ${repo?.html_url}`,
         ...prBody,
         `Workflow: ${context.workflow}`,
