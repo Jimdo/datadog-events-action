@@ -22,4 +22,4 @@ jobs:
           DD_API_KEY: ${{ secrets.DD_API_KEY }}
           DD_SITE: datadoghq.eu
         with:
-          event: start
+          event: startfsdgdf
