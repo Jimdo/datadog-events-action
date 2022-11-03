@@ -15,7 +15,7 @@ function isValidEvent(eventname: Events) {
 
 try {
     const eventname = getInput('event') as Events;
-    if (isValidEvent(eventname)) {
+    if (!isValidEvent(eventname)) {
         setFailed(`Invalid eventname ${eventname}. Can be ${eventNames.join(', ')}`);
     }
 
