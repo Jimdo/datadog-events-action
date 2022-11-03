@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "DD_SITE=datadoghq.eu node dist/index.js",
-    "build": "esbuild index.ts --tree-shaking=true --bundle --platform=node --target=node16 --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --tree-shaking=true --bundle --platform=node --target=node16 --minify --outfile=dist/index.js",
     "prepare": "husky install"
   },
   "keywords": [],
