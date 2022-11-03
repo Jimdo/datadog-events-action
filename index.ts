@@ -16,7 +16,9 @@ function isValidEvent(eventname: Events) {
 try {
     const eventname = getInput('event') as Events;
     if (!isValidEvent(eventname)) {
-        throw new Error(`Invalid eventname ${eventname}. Can be ${eventNames.join(', ')}`);
+        throw new Error(
+            `Invalid event input "${eventname}". Can be one of [${eventNames.join(', ')}]`
+        );
     }
 
     const payload = context.payload;
